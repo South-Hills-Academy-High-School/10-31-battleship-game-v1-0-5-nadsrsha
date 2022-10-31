@@ -78,6 +78,12 @@ function isPlayerXWinner (enemyBoats: Sprite[][], hitOrMissPX: Sprite[]) {
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     cpuPlaceBoat0()
     cpuPlaceBoat1()
+    cpuPlaceBoat2()
+    while (isOverlapping(boatRotateArrayP2)) {
+        cpuPlaceBoat0()
+        cpuPlaceBoat1()
+        cpuPlaceBoat2()
+    }
 })
 controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
     rotateFlag = "nothing"
@@ -607,6 +613,22 @@ function initP2 () {
 function makeBoatInvisible (boatArray: Sprite[]) {
     for (let currentBoatSprite of boatArray) {
         currentBoatSprite.setFlag(SpriteFlag.Invisible, true)
+    }
+}
+function cpuPlaceBoat2 () {
+    makeBoatVisible(boatSpriteArrayP2[2])
+    if (randint(0, 1) == 0) {
+        grid.place(cursor, tiles.getTileLocation(randint(0, 7), randint(0, 6)))
+        grid.place(boatSpriteArrayP2[2][0], grid.add(grid.getLocation(cursor), 0, 0))
+        grid.place(boatSpriteArrayP2[2][1], grid.add(grid.getLocation(cursor), 1, 0))
+        grid.place(boatSpriteArrayP2[2][2], grid.add(grid.getLocation(cursor), 2, 0))
+        grid.place(boatSpriteArrayP2[2][3], grid.add(grid.getLocation(cursor), 3, 0))
+    } else {
+        grid.place(cursor, tiles.getTileLocation(randint(0, 9), randint(0, 4)))
+        grid.place(boatSpriteArrayP2[2][0], grid.add(grid.getLocation(cursor), 0, 0))
+        grid.place(boatSpriteArrayP2[2][1], grid.add(grid.getLocation(cursor), 0, 1))
+        grid.place(boatSpriteArrayP2[2][2], grid.add(grid.getLocation(cursor), 0, 2))
+        grid.place(boatSpriteArrayP2[2][3], grid.add(grid.getLocation(cursor), 0, 3))
     }
 }
 function turnBoat (boatNum: number, boatRotateArray: string[]) {
